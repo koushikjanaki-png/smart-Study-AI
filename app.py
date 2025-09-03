@@ -6,7 +6,7 @@ import openai
 # -------------------------------
 
 # Replace this with your OpenAI API key
-openai.api_key = "YOUR_OPENAI_API_KEY"
+openai(api_key = "YOUR_API_KEY")
 
 # Streamlit page configuration
 st.set_page_config(page_title="SmartStudy AI", page_icon="📚")
@@ -55,3 +55,12 @@ if st.button("Get Answer"):
                 st.error(f"Error: {e}")
     else:
         st.warning("Please enter a question.")
+    response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": user_input}
+    ]
+)
+reply = response.choices[0].message["content"]
+st.write(reply)
