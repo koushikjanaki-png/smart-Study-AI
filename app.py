@@ -61,3 +61,16 @@ for chat in st.session_state.messages:
         st.markdown(f"**You:** {chat['content']}")
     else:
         st.markdown(f"**AI:** {chat['content']}")
+from openai import OpenAI
+
+client = OpenAI(api_key="YOUR_API_KEY")
+
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Hello!"}
+    ]
+)
+
+print(response.choices[0].message.content)
